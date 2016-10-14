@@ -5,7 +5,9 @@ import dagger.Component;
 /**
  * Created by levent_j on 16-10-14.
  */
-@Component(modules = ActivityModule.class)
-public interface ActivityComponent{
+@ActivityScope
+@Component(modules = ActivityModule.class,dependencies = AppComponent.class)
+public interface ActivityComponent {
     void inject(MainActivity activity);
+    //void inject(DaggerActivity daggerActivity)
 }

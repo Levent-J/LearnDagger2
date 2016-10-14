@@ -22,11 +22,6 @@ public class ActivityModule {
     }
 
     @Provides
-    public User provideUser(){
-        return new User("new user from module");
-    }
-
-    @Provides
     public DaggerPresenter provideDaggerPresenter(MainActivity activity,User user){
         return new DaggerPresenter(activity,user);
     }

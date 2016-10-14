@@ -6,12 +6,21 @@ import android.widget.TextView;
 
 import javax.inject.Inject;
 
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
 
     @Inject
     DaggerPresenter presenter;
+
+    @Inject
+    OkHttpClient okHttpClient;
+
+    @Inject
+    Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +34,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void inject() {
-        DaggerActivityComponent.
-                builder().
-                activityModule(new ActivityModule(this))
+        AppComponent appComponent = ((MyApplication)getApplication()).getAppComponent();
+        DaggerActivityComponent
+                .builder()
+                .appComponent(appComponent)
+                .activityModule(new ActivityModule(this))
                 .build()
                 .inject(this);
+
     }
 
     public void showUserName(String name) {
